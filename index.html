@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Raghuvir Business Empire</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Hind:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  --indigo:#1d2b64;--indigo-2:#2c3d8a;--turmeric:#e6a817;--madder:#b3382c;
+  --bg:#f4f5fa;--card:#fff;--ink:#171a2b;--muted:#5d6280;--line:#dde0ee;--ok:#1f7a4d;--accent-text:#2c3d8a;
+  --head-font:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
+  --body-font:'Hind','Segoe UI',system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#0f1226;--card:#181c38;--ink:#eceefb;--muted:#9aa0c4;--line:#2a3060;--indigo:#0b1033;--indigo-2:#222c6b;--ok:#4cc78b;--accent-text:#e6a817}
+}
+:root[data-theme="dark"]{--bg:#0f1226;--card:#181c38;--ink:#eceefb;--muted:#9aa0c4;--line:#2a3060;--indigo:#0b1033;--indigo-2:#222c6b;--ok:#4cc78b;--accent-text:#e6a817}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body-font);font-size:16px;line-height:1.45;padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+.wrap{max-width:720px;margin:0 auto;padding:0 14px 24px}
+.hero{
+  margin:0 -14px 16px;padding:calc(20px + env(safe-area-inset-top,0px)) 18px 20px;color:#fff;
+  background:
+    repeating-linear-gradient(0deg,rgba(255,255,255,.055) 0 2px,transparent 2px 7px),
+    repeating-linear-gradient(90deg,rgba(230,168,23,.12) 0 2px,transparent 2px 7px),
+    linear-gradient(160deg,var(--indigo-2),var(--indigo));
+  border-bottom:4px solid var(--turmeric);
+}
+.hero h1{font-family:var(--head-font);font-weight:800;font-size:1.6rem;line-height:1.1;margin:0 0 4px}
+.hero p{margin:0;opacity:.8;font-size:.95rem}
+.hero-row{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-top:16px;flex-wrap:wrap}
+.hero .big{font-family:var(--head-font);font-weight:800;font-size:2.3rem;line-height:1}
+.hero .big small{font-size:.9rem;font-weight:600;opacity:.85;display:block;margin-bottom:4px;font-family:var(--body-font)}
+.ratebtn{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:999px;padding:8px 14px;font:600 .95rem var(--body-font);cursor:pointer}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--turmeric);outline-offset:2px}
+h2{font-family:var(--head-font);font-size:1.15rem;margin:0 0 10px;font-weight:600}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+label{display:block;font-size:.85rem;color:var(--muted);margin-bottom:4px;font-weight:500}
+input[type=text],input[type=number],input[type=date],input[type=month],input[type=search]{width:100%;font:500 1rem var(--body-font);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:11px 12px;min-height:46px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.full{grid-column:1/-1}
+.calc{display:flex;justify-content:space-between;align-items:center;background:var(--bg);border:1px dashed var(--turmeric);border-radius:10px;padding:10px 12px;margin-top:12px}
+.calc b{font-family:var(--head-font);font-size:1.4rem;color:var(--accent-text)}
+.primary{width:100%;margin-top:12px;min-height:50px;border:0;border-radius:12px;background:var(--indigo-2);color:#fff;font:600 1.05rem var(--body-font);cursor:pointer}
+.ghost{background:transparent;border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:9px 14px;font:500 .95rem var(--body-font);cursor:pointer;min-height:44px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 8px;text-align:center}
+.stat b{display:block;font-family:var(--head-font);font-size:1.25rem}
+.stat span{font-size:.78rem;color:var(--muted)}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th,td{text-align:left;padding:10px 6px;border-bottom:1px solid var(--line);font-size:.97rem}
+th{font-size:.8rem;color:var(--muted);font-weight:500}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+tfoot td{font-weight:700;border-bottom:0;border-top:2px solid var(--turmeric)}
+.empty{color:var(--muted);text-align:center;padding:18px 6px}
+.del{background:none;border:0;color:var(--madder);font:600 .9rem var(--body-font);cursor:pointer;padding:8px}
+/* worker cards */
+.wcard{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;overflow:hidden}
+.whead{width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px;background:none;border:0;color:var(--ink);font:inherit;cursor:pointer;text-align:left}
+.whead .nm{font-weight:600;font-size:1.05rem}
+.whead .sm{font-size:.85rem;color:var(--muted)}
+.whead .amt{font-family:var(--head-font);font-weight:800;font-size:1.2rem;color:var(--accent-text)}
+.wbody{border-top:1px solid var(--line);padding:4px 14px 10px;background:var(--bg)}
+.wbody td,.wbody th{padding:8px 4px;font-size:.92rem}
+pre{white-space:pre-wrap;word-break:break-word;background:var(--bg);border-radius:10px;padding:12px;margin:0 0 10px;font:500 .92rem/1.5 var(--body-font);max-height:300px;overflow:auto}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+.btns .primary,.btns .ghost{margin-top:0;flex:1 1 140px}
+.note{font-size:.82rem;color:var(--muted);margin:8px 0 0}
+.month-row{display:flex;gap:10px;align-items:end;margin-bottom:14px}
+.month-row>div{flex:1}
+/* bottom nav */
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom,0px);z-index:5}
+nav a{flex:1;text-align:center;padding:10px 4px 9px;color:var(--muted);text-decoration:none;font-weight:600;font-size:.85rem;display:flex;flex-direction:column;align-items:center;gap:2px;border-top:3px solid transparent}
+nav a .ic{font-size:1.3rem;line-height:1}
+nav a.on{color:var(--accent-text);border-top-color:var(--turmeric)}
+.page{display:none}.page.on{display:block}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(88px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-weight:600;font-size:.95rem;opacity:0;pointer-events:none;transition:opacity .2s;z-index:9;max-width:92vw;text-align:center}
+.toast.on{opacity:1}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HOME -->
+  <section class="page" id="p-home">
+    <header class="hero">
+      <h1>Raghuvir Business Empire</h1>
+      <p>TP ka poora hisab, ek jagah</p>
+      <div class="hero-row">
+        <div class="big"><small id="heroLabel">Is mahine ka total</small><span id="heroAmt">₹0</span></div>
+        <button class="ratebtn" id="rateBtn">Rate ₹11 / TP ✎</button>
+      </div>
+    </header>
+
+    <div class="stats" style="margin-bottom:14px">
+      <div class="stat"><b id="hTP">0</b><span>Total TP</span></div>
+      <div class="stat"><b id="hWk">0</b><span>Kaam karne wale</span></div>
+      <div class="stat"><b id="hEn">0</b><span>Entries</span></div>
+    </div>
+
+    <div class="panel">
+      <h2>Nayi TP entry</h2>
+      <div class="grid">
+        <div class="full">
+          <label for="name">Kaam karne wale ka naam</label>
+          <input id="name" type="text" list="names" autocomplete="off" placeholder="Jaise: Ramesh">
+          <datalist id="names"></datalist>
+        </div>
+        <div>
+          <label for="tp">Kitni TP bhari</label>
+          <input id="tp" type="number" inputmode="numeric" min="1" placeholder="100">
+        </div>
+        <div>
+          <label for="date">Date</label>
+          <input id="date" type="date">
+        </div>
+      </div>
+      <div class="calc"><span>Rupee (TP × rate)</span><b id="calc">₹0</b></div>
+      <button class="primary" id="save">Entry save karo</button>
+    </div>
+
+    <div class="panel">
+      <h2>Haal ki entries</h2>
+      <div class="scroll"><table>
+        <thead><tr><th>Date</th><th>Naam</th><th class="n">TP</th><th class="n">Rupee</th></tr></thead>
+        <tbody id="recent"></tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <!-- WORKS -->
+  <section class="page" id="p-works">
+    <header class="hero">
+      <h1>Kaam / Workers</h1>
+      <p>Har kaam karne wale ka alag hisab</p>
+    </header>
+    <div class="month-row">
+      <div><label for="monthW">Mahina</label><input id="monthW" type="month"></div>
+    </div>
+    <label for="search">Naam dhundo</label>
+    <input id="search" type="search" placeholder="Naam likho" style="margin-bottom:14px">
+    <div id="wlist"></div>
+  </section>
+
+  <!-- REPORT -->
+  <section class="page" id="p-report">
+    <header class="hero">
+      <h1>Mahine ki report</h1>
+      <p>Mahina chuno, total dekho, bhejo</p>
+    </header>
+    <div class="month-row">
+      <div><label for="monthR">Mahina</label><input id="monthR" type="month"></div>
+    </div>
+    <div class="stats" style="margin-bottom:14px">
+      <div class="stat"><b id="rTP">0</b><span>Total TP</span></div>
+      <div class="stat"><b id="rAmt">₹0</b><span>Total rupee</span></div>
+      <div class="stat"><b id="rWk">0</b><span>Workers</span></div>
+    </div>
+    <div class="panel">
+      <h2>Worker-wise</h2>
+      <div class="scroll"><table>
+        <thead><tr><th>Naam</th><th class="n">TP</th><th class="n">Rupee</th></tr></thead>
+        <tbody id="rBody"></tbody><tfoot id="rFoot"></tfoot>
+      </table></div>
+    </div>
+    <div class="panel">
+      <h2>Report bhejo</h2>
+      <pre id="report"></pre>
+      <div class="btns">
+        <button class="primary" id="copy">Report copy karo</button>
+        <button class="primary" id="share" style="background:var(--ok)">WhatsApp / Share</button>
+      </div>
+    </div>
+    <div class="panel">
+      <h2>Backup (data safe rakho)</h2>
+      <p class="note" style="margin-top:0">Data isi phone/browser mein save rehta hai. Hafte mein ek baar backup file download karke WhatsApp ya Drive mein rakh lo. Naye phone par "Backup wapas lao" se sab wapas aa jayega.</p>
+      <div class="btns" style="margin-top:10px">
+        <button class="ghost" id="bkDown">Backup download</button>
+        <button class="ghost" id="bkUp">Backup wapas lao</button>
+      </div>
+      <input type="file" id="bkFile" accept="application/json,.json" hidden>
+    </div>
+  </section>
+</div>
+
+<nav aria-label="Pages">
+  <a href="#home" data-p="home"><span class="ic">🏠</span>Home</a>
+  <a href="#works" data-p="works"><span class="ic">🧵</span>Kaam</a>
+  <a href="#report" data-p="report"><span class="ic">📊</span>Report</a>
+</nav>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+  var KEY='raghuvir_tp_v1';
+  var state={entries:[],rate:11};
+  var month=todayStr().slice(0,7);
+  var openWorker=null,pendingDel=null;
+  var $=function(id){return document.getElementById(id)};
+
+  function load(){
+    try{var raw=localStorage.getItem(KEY);
+      if(raw){var d=JSON.parse(raw);if(d&&Array.isArray(d.entries)){state.entries=d.entries;state.rate=Number(d.rate)||11}}
+    }catch(e){}
+  }
+  function persist(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){toast('Save nahi ho paya, backup download karo')}}
+  try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}
+
+  function todayStr(){var d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().slice(0,10)}
+  function inr(n){return '₹'+Number(n).toLocaleString('en-IN')}
+  function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+  function fmtDate(s){var p=s.split('-');return p[2]+'/'+p[1]}
+  function monthLabel(m){var p=m.split('-');var n=['January','February','March','April','May','June','July','August','September','October','November','December'];return n[Number(p[1])-1]+' '+p[0]}
+  function toast(msg){var t=$('toast');t.textContent=msg;t.classList.add('on');clearTimeout(toast._t);toast._t=setTimeout(function(){t.classList.remove('on')},2000)}
+
+  function monthEntries(){return state.entries.filter(function(e){return e.date.slice(0,7)===month})}
+  function workers(list){
+    var map={};
+    list.forEach(function(e){
+      var k=e.name.trim().toLowerCase();
+      if(!map[k])map[k]={key:k,name:e.name.trim(),tp:0,amt:0,items:[]};
+      map[k].tp+=e.tp;map[k].amt+=e.tp*e.rate;map[k].items.push(e);
+    });
+    return Object.keys(map).map(function(k){return map[k]}).sort(function(a,b){return b.amt-a.amt});
+  }
+  function buildReport(ws,tTP,tAmt){
+    var t='Raghuvir Business Empire\nTP Report: '+monthLabel(month)+'\n\n';
+    if(!ws.length)return t+'Is mahine koi entry nahi hai.';
+    ws.forEach(function(w,i){t+=(i+1)+'. '+w.name+': '+w.tp+' TP = '+inr(w.amt)+'\n'});
+    return t+'\nTotal: '+tTP+' TP = '+inr(tAmt);
+  }
+
+  function render(){
+    var list=monthEntries();
+    var ws=workers(list);
+    var tTP=0,tAmt=0;list.forEach(function(e){tTP+=e.tp;tAmt+=e.tp*e.rate});
+
+    $('monthW').value=month;$('monthR').value=month;
+    $('rateBtn').textContent='Rate ₹'+state.rate+' / TP ✎';
+    $('heroLabel').textContent=monthLabel(month)+' ka total';
+    $('heroAmt').textContent=inr(tAmt);
+    $('hTP').textContent=tTP.toLocaleString('en-IN');$('hWk').textContent=ws.length;$('hEn').textContent=list.length;
+
+    var all={};state.entries.forEach(function(e){all[e.name.trim()]=1});
+    $('names').innerHTML=Object.keys(all).sort().map(function(n){return '<option value="'+esc(n)+'">'}).join('');
+
+    // home recent
+    var recent=state.entries.slice().sort(function(a,b){return a.date<b.date?1:a.date>b.date?-1:b.id-a.id}).slice(0,6);
+    $('recent').innerHTML=recent.length?recent.map(function(e){return '<tr><td>'+fmtDate(e.date)+'</td><td>'+esc(e.name)+'</td><td class="n">'+e.tp+'</td><td class="n">'+inr(e.tp*e.rate)+'</td></tr>'}).join(''):'<tr><td colspan="4" class="empty">Abhi koi entry nahi. Upar se pehli entry daalo.</td></tr>';
+
+    // works page
+    var q=$('search').value.trim().toLowerCase();
+    var shown=ws.filter(function(w){return !q||w.name.toLowerCase().indexOf(q)>-1});
+    var h='';
+    if(!shown.length)h='<div class="empty">'+(ws.length?'Koi naam nahi mila.':'Is mahine koi entry nahi hai.')+'</div>';
+    shown.forEach(function(w){
+      var open=openWorker===w.key;
+      h+='<div class="wcard"><button class="whead" data-w="'+esc(w.key)+'" aria-expanded="'+open+'"><span><span class="nm">'+esc(w.name)+'</span><br><span class="sm">'+w.tp+' TP, '+w.items.length+' entry</span></span><span class="amt">'+inr(w.amt)+'</span></button>';
+      if(open){
+        h+='<div class="wbody"><table><thead><tr><th>Date</th><th class="n">TP</th><th class="n">Rupee</th><th></th></tr></thead><tbody>';
+        w.items.slice().sort(function(a,b){return a.date<b.date?-1:1}).forEach(function(e){
+          h+='<tr><td>'+fmtDate(e.date)+'</td><td class="n">'+e.tp+'</td><td class="n">'+inr(e.tp*e.rate)+'</td><td><button class="del" data-id="'+e.id+'">'+(pendingDel===e.id?'Pakka?':'Hatao')+'</button></td></tr>';
+        });
+        h+='</tbody></table></div>';
+      }
+      h+='</div>';
+    });
+    $('wlist').innerHTML=h;
+
+    // report page
+    $('rTP').textContent=tTP.toLocaleString('en-IN');$('rAmt').textContent=inr(tAmt);$('rWk').textContent=ws.length;
+    $('rBody').innerHTML=ws.length?ws.map(function(w){return '<tr><td>'+esc(w.name)+'</td><td class="n">'+w.tp+'</td><td class="n">'+inr(w.amt)+'</td></tr>'}).join(''):'<tr><td colspan="3" class="empty">Is mahine koi entry nahi hai.</td></tr>';
+    $('rFoot').innerHTML=ws.length?'<tr><td>Total</td><td class="n">'+tTP+'</td><td class="n">'+inr(tAmt)+'</td></tr>':'';
+    $('report').textContent=buildReport(ws,tTP,tAmt);
+  }
+
+  var PAGES=['home','works','report'];
+  function show(p){
+    if(PAGES.indexOf(p)<0)p='home';
+    PAGES.forEach(function(x){$('p-'+x).classList.toggle('on',x===p)});
+    document.querySelectorAll('nav a').forEach(function(a){a.classList.toggle('on',a.getAttribute('data-p')===p)});
+    window.scrollTo(0,0);
+  }
+  function route(){show((location.hash||'#home').slice(1))}
+  document.querySelectorAll('nav a').forEach(function(a){
+    a.addEventListener('click',function(ev){
+      ev.preventDefault();
+      var p=a.getAttribute('data-p');
+      show(p);
+      try{history.replaceState(null,'','#'+p)}catch(e){}
+    });
+  });
+  window.addEventListener('hashchange',route);
+
+  function updateCalc(){$('calc').textContent=inr((Number($('tp').value)||0)*state.rate)}
+  $('tp').addEventListener('input',updateCalc);
+
+  $('save').addEventListener('click',function(){
+    var name=$('name').value.trim(),tp=parseInt($('tp').value,10),date=$('date').value;
+    if(!name){toast('Naam likho');$('name').focus();return}
+    if(!tp||tp<1){toast('TP ginti likho');$('tp').focus();return}
+    if(!date){toast('Date chuno');return}
+    var lower=name.toLowerCase();
+    for(var i=0;i<state.entries.length;i++){if(state.entries[i].name.trim().toLowerCase()===lower){name=state.entries[i].name.trim();break}}
+    state.entries.push({id:Date.now(),name:name,tp:tp,date:date,rate:state.rate});
+    persist();
+    month=date.slice(0,7);
+    $('tp').value='';$('name').value='';updateCalc();render();
+    toast('Save ho gaya: '+name+', '+tp+' TP = '+inr(tp*state.rate));
+    $('name').focus();
+  });
+
+  function setMonth(v){if(!v)return;month=v;openWorker=null;pendingDel=null;render()}
+  $('monthW').addEventListener('change',function(){setMonth(this.value)});
+  $('monthR').addEventListener('change',function(){setMonth(this.value)});
+  $('search').addEventListener('input',render);
+
+  $('wlist').addEventListener('click',function(ev){
+    var del=ev.target.closest('.del');
+    if(del){
+      var id=Number(del.getAttribute('data-id'));
+      if(pendingDel===id){state.entries=state.entries.filter(function(e){return e.id!==id});pendingDel=null;persist();render();toast('Entry hata di')}
+      else{pendingDel=id;render();setTimeout(function(){if(pendingDel===id){pendingDel=null;render()}},3000)}
+      return;
+    }
+    var hd=ev.target.closest('.whead');
+    if(hd){var k=hd.getAttribute('data-w');openWorker=openWorker===k?null:k;pendingDel=null;render()}
+  });
+
+  $('rateBtn').addEventListener('click',function(){
+    var v=prompt('Nayi TP rate (rupee). Purani entries ka rate nahi badlega.',state.rate);
+    if(v===null)return;
+    var n=parseFloat(v);
+    if(!n||n<=0){toast('Sahi rate likho');return}
+    state.rate=n;persist();updateCalc();render();toast('Rate ab ₹'+n+' / TP');
+  });
+
+  function copyText(txt,done){
+    function fb(){var ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();var ok=false;try{ok=document.execCommand('copy')}catch(e){}document.body.removeChild(ta);done(ok)}
+    try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){done(true)},fb)}else fb()}catch(e){fb()}
+  }
+  $('copy').addEventListener('click',function(){copyText($('report').textContent,function(ok){toast(ok?'Report copy ho gayi':'Copy nahi hua')})});
+  $('share').addEventListener('click',function(){
+    var txt=$('report').textContent;
+    try{if(navigator.share){navigator.share({text:txt}).catch(function(){});return}}catch(e){}
+    copyText(txt,function(ok){toast(ok?'Copy ho gayi, WhatsApp mein paste karo':'Share nahi hua')});
+  });
+
+  // backup / restore via file
+  $('bkDown').addEventListener('click',function(){
+    try{
+      var blob=new Blob([JSON.stringify(state,null,1)],{type:'application/json'});
+      var a=document.createElement('a');a.href=URL.createObjectURL(blob);
+      a.download='raghuvir-backup-'+todayStr()+'.json';document.body.appendChild(a);a.click();document.body.removeChild(a);
+      toast('Backup file download ho gayi');
+    }catch(e){toast('Download nahi hua')}
+  });
+  $('bkUp').addEventListener('click',function(){$('bkFile').click()});
+  $('bkFile').addEventListener('change',function(){
+    var f=this.files&&this.files[0];if(!f)return;
+    var r=new FileReader();
+    r.onload=function(){
+      try{
+        var d=JSON.parse(r.result);if(!d||!Array.isArray(d.entries))throw 0;
+        if(state.entries.length&&!confirm('Maujooda data hat kar backup wala data aayega. Aage badhein?'))return;
+        state.entries=d.entries;state.rate=Number(d.rate)||11;persist();render();toast('Backup wapas aa gaya');
+      }catch(e){toast('Backup file sahi nahi hai')}
+    };
+    r.readAsText(f);this.value='';
+  });
+
+  load();
+  $('date').value=todayStr();
+  updateCalc();render();route();
+})();
+</script>
+</body>
+</html>
